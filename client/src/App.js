@@ -1,12 +1,15 @@
 import React from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Homescreen from './screens/Homescreen';
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <h1>Welcome to the MERCHSHOP</h1>
+      <main className='my-5'>
+        <Homescreen />
+      </main>
       <Footer />
     </div>
   );
