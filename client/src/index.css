@@ -8,3 +8,7 @@
 .ml-auto {
   margin-left: auto!important;
 }
+
+.productscreen .btn-block{
+  width:100%;
+}

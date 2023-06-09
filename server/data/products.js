@@ -1,6 +1,5 @@
 const products = [
   {
-    id:'1',
     name: 'Amazon',
     image: '/images/amazon.jpg',
     description:
@@ -13,7 +12,6 @@ const products = [
     numReviews: 12,
   },
   {
-    id:'2',
     name: 'Airtel',
     image: '/images/airtel.jpg',
     description:
@@ -26,7 +24,6 @@ const products = [
     numReviews: 12,
   },
   {
-    id:3,
     name: 'Walmart',
     image: '/images/walmart.jpg',
     description:
@@ -40,7 +37,6 @@ const products = [
   },
   
   {
-    id:4,
     name: 'TCS',
     image: '/images/tcs.jpg',
     description:
@@ -53,7 +49,6 @@ const products = [
     numReviews: 12,
   },
   {
-    id:5,
     name: 'Google',
     image: '/images/google.jpg',
     description:
@@ -66,7 +61,6 @@ const products = [
     numReviews: 10,
   },
   {
-    id:6,
     name: 'Yamaha',
     image: '/images/yamaha.jpg',
     description:
@@ -80,4 +74,4 @@ const products = [
   }
 ]
 
-export default products
+module.exports = products;
