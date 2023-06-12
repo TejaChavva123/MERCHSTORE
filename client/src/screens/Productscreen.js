@@ -1,31 +1,30 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState,useEffect} from 'react'
 import { Container} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import {Row,Col,Image,ListGroup,Card,Button,Form} from 'react-bootstrap';
 import Rating from '../components/Rating' ;
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useSelector,useDispatch} from 'react-redux';
 
-import axios from 'axios';
+import {detailsProduct} from '../actions/productAction';
+
+import Loader from '../components/Loader';
+import Message from '../components/Message';
 
 const Productscreen = ({match}) => {
   let navigate = useNavigate();
   let {id}= useParams();
+  const dispatch = useDispatch();
+  const productDetails = useSelector(state=>state.productDetails);
+  const {loading,error,product} = productDetails;
   const [qty,setQty] = useState(1);
-  const [product,setProduct] = useState({});
-  const arr = [...Array(product.countInStock).keys()];
   const addCartHandler = ()=>{
     navigate(`/cart/${id}?qty=${qty}`)
   }
-
-
   useEffect(()=>{
-    const productFetch = async ()=>{
-        const info = await axios.get(`/api/products/${id}`);
-        setProduct(info.data);
-    }
-    productFetch();
-  },[id])
+    dispatch(detailsProduct(id));
+  },[dispatch,id])
   return (
     <div>
         <main className='productscreen my-5'>
@@ -33,7 +32,8 @@ const Productscreen = ({match}) => {
                 <Link className='btn btn-dark' to="/">
                     Go Back
                 </Link>
-                <Row>
+                {loading ? <Loader /> : product ?  
+                (<Row>
                     <Col className="my-4" md={4}>
                         <Image src={product.image} alt={product.name} fluid />
                     </Col>
@@ -77,7 +77,7 @@ const Productscreen = ({match}) => {
                                         <Col>Qty: </Col>
                                         <Col>
                                           <Form.Control  as="select" value={qty} onChange={(e)=>setQty(e.target.value)}>
-                                            {arr.map(x=>(
+                                            {[...Array(product.countInStock).keys()].map(x=>(
                                                 <option key={x+1} value={x+1}>{x+1}</option>
                                             ))}
                                           </Form.Control >
@@ -95,7 +95,7 @@ const Productscreen = ({match}) => {
                         </Card>
                         
                     </Col>
-                </Row>
+                </Row>):<Message variant='danger'>{error}</Message> }
             </Container>
         </main>
     </div>

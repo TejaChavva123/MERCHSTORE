@@ -1,6 +1,8 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const createHttpError = require("http-errors");
 const ConnectDB = require('./connect/db');
+
 const app = express();
 require("dotenv").config();
 
@@ -14,6 +16,16 @@ app.get('/',(req,res)=>{
 })
 
 app.use('/api/products',ProductRoutes);
-const PORT = process.env.PORT||5000;
 
+app.use((req,res,next)=>{
+    next(createHttpError.NotFound());
+})
+app.use((error,req,res,next)=>{
+    res.status(error.status||500);
+    return res.send({
+        status:error.status||500,
+        message:error.message
+    })
+})
+const PORT = process.env.PORT||5000;
 app.listen(PORT,console.log(`Server is runnning in ${process.env.NODE_ENV} mode on the port ${PORT}`));

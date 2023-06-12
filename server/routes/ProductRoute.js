@@ -4,18 +4,29 @@ const asyncHandler = require("express-async-handler");
 
 const Product = require("../models/productSchema");
 
-router.get('/',asyncHandler(async(req,res)=>{
-    const products = await Product.find({});
-    res.json(products);
+router.get('/',asyncHandler(async(req,res,next)=>{
+    try{
+        const products = await Product.find({});
+        res.json(products);
+    }
+    catch(error){
+        next(error);
+    }
 }))
 
-router.get('/:id',asyncHandler(async(req,res)=>{
-    const product = await Product.findById(req.params.id);
-    if (product){
-        res.json(product);
+router.get('/:id',asyncHandler(async(req,res,next)=>{
+    try{
+        const product = await Product.findById(req.params.id);
+        if (product){
+            res.json(product);
+        }
+        else{
+            throw new Error("NOT FOUND");
+        }
     }
-    else{
-        res.status(404).json({message:'Product Not Found'});
+    catch(err){
+        const error = {status:404,message:`Product with ID ${req.params.id} not found`};
+        next(error);
     }
 }))
 
