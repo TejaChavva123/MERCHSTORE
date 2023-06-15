@@ -72,8 +72,8 @@ const Productscreen = ({match}) => {
                                 </Row>
                             </ListGroup.Item>
                             {product.countInStock>0 && (
-                                <ListGroup.Item>
-                                    <Row className='text-center'>
+                                <ListGroup.Item className='select-bar'>
+                                    <Row>
                                         <Col>Qty: </Col>
                                         <Col>
                                           <Form.Control  as="select" value={qty} onChange={(e)=>setQty(e.target.value)}>

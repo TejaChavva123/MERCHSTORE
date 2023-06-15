@@ -21,7 +21,7 @@ const Homescreen = () => {
       <h2 className="text-center p-5">Latest Merchandise</h2>
       {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
         (<Row>
-          {products.map(product=>(
+          {products?.map(product=>(
             <Col sm={12} md={6} lg={4} xl={3}>
               <Product product={product}/>
             </Col>

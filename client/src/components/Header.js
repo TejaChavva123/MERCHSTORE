@@ -1,8 +1,21 @@
 import React from 'react';
-import {Navbar,Nav,Container} from 'react-bootstrap';
+import {Navbar,Nav,Container, NavDropdown} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
+import {useDispatch,useSelector} from 'react-redux';
+import { userLogout } from '../actions/userAction';
+import { useLocation,useNavigate} from 'react-router-dom';
 
 const Header = () => {
+    const dispatch = useDispatch();
+    const userlogin = useSelector(state=>state.userLogin);
+    const {userInfo} = userlogin;
+    const location = useLocation();
+    const navigate = useNavigate();
+    const redirect = location.search ? location.search.split("=")[1] : '/'
+    const logoutHandler = ()=>{
+      dispatch(userLogout())
+      navigate(redirect);
+    }
     return (
         <>
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -21,9 +34,22 @@ const Header = () => {
                             <LinkContainer  to="/cart">
                               <Nav.Link><i className='fas fa-shopping-cart'></i> &nbsp;Cart</Nav.Link>
                             </LinkContainer>
-                            <LinkContainer to="/login">
+                            {
+                              userInfo ? 
+                              (<NavDropdown title={userInfo.firstName} id='username'>
+                                <LinkContainer to='profile'>
+                                  <NavDropdown.Item>Profile</NavDropdown.Item>
+                                </LinkContainer>
+                                <NavDropdown.Item onClick={logoutHandler}>Log Out</NavDropdown.Item>
+                              </NavDropdown>)
+                              
+                              
+                             :
+                              (<LinkContainer to="/login">
                               <Nav.Link><i className='fas fa-user'></i> &nbsp;Sign In</Nav.Link>
-                            </LinkContainer>
+                            </LinkContainer>)
+                              
+                            }
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
