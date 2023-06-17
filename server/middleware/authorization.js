@@ -21,6 +21,7 @@ const authorization = asyncHandler(async(req,res,next)=>{
     }
   }
   if (!token) {
+    console.log(token)
     res.status(401)
     throw new Error('No Authorization')
   }

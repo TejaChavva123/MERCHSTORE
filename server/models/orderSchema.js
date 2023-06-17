@@ -24,6 +24,8 @@ const orderSchema = new schema ({
     shippingAddress:{
         address: {type: String,required:true},
         city: {type: String,required:true},
+        district: {type: String,required:true},
+        state: {type: String,required:true},
         pincode: {type: String,required:true},
         country: {type: String,required:true}
 
@@ -33,20 +35,9 @@ const orderSchema = new schema ({
         required: true
     },
     paymentResult: {
-        id: {type: String},
-        status: {type: String},
-        updated_time: {type: String},
-        email_address: {type: String}
-    },
-    taxPrice: {
-        type: Number,
-        required: true,
-        default: 0.0
-    },
-    shippingPrice: {
-        type: Number,
-        required: true,
-        default: 0.0
+        razorpay_payment_id: {type: String},
+        razorpay_order_id: {type: String},
+        razorpay_signature: {type: String},
     },
     totalPrice: {
         type: Number,

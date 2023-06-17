@@ -10,6 +10,9 @@ import LoginScreen from './screens/LoginScreen';
 import RegistrationScreen from './screens/RegistrationScreen';
 import Profilescreen from './screens/Profilescreen';
 import Shippingscreen from './screens/Shippingscreen';
+import Paymentscreen from './screens/Paymentscreen';
+import Placeorderscreen from './screens/Placeorderscreen';
+import Orderscreen from './screens/Orderscreen'
 function App() {
   return (
     <BrowserRouter>
@@ -23,6 +26,9 @@ function App() {
           <Route path='/register' element={<RegistrationScreen />} />
           <Route path='/login?/profile' element={<Profilescreen />} />
           <Route path='/login?/shipping' element = {<Shippingscreen />} />
+          <Route path='/login?/payment' element={<Paymentscreen />} />
+          <Route path='/placeorder' element={<Placeorderscreen />} />
+          <Route path='/order/:id' element={<Orderscreen />} />
       </Routes>
       <Footer />
     </div>

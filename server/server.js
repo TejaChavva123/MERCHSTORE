@@ -7,6 +7,8 @@ const ConnectDB = require('./connect/db');
 const ProductRoutes = require("./routes/ProductRoute");
 const userRoutes = require("./routes/userRoutes");
 const profileRoutes = require('./routes/profileRoutes');
+const orderRoutes = require("./routes/orderRoutes");
+const paymentRoutes = require("./routes/paymentRoutes");
 const authorization = require("./middleware/authorization");
 
 const app = express();
@@ -29,6 +31,10 @@ app.use('/api/products',ProductRoutes);
 
 app.use('/api/users',userRoutes);
 app.use('/profile',authorization,profileRoutes);
+
+
+app.use('/api/orders',authorization,orderRoutes);
+app.use('/api/payment',authorization,paymentRoutes);
 
 app.use((error,req,res,next)=>{
     res.status(error.status||500);

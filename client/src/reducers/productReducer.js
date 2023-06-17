@@ -1,6 +1,6 @@
 import { PRODUCT_LIST_FAILURE, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS } from "../constants/productConstants";
 
-import { PRODUCT_DETAILS_REQUEST,PRODUCT_DETAILS_SUCCESS,PRODUCT_DETAILS_FAILURE } from "../constants/productConstants";
+import { PRODUCT_DETAILS_REQUEST,PRODUCT_DETAILS_SUCCESS,PRODUCT_DETAILS_FAILURE,PRODUCT_DETAILS_RESET } from "../constants/productConstants";
 
 export const ProductListReducer = (state={products:[]},action)=>{
     switch(action.type){
@@ -23,6 +23,8 @@ export const ProductDetailsReducer = (state={product:{}},action)=>{
             return {loading:false,product:action.load};
         case PRODUCT_DETAILS_FAILURE:
             return {loading:false,error:action.load};
+        case PRODUCT_DETAILS_RESET:
+            return {...state,product:{}};
         default:
             return state;
     }

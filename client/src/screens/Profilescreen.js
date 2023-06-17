@@ -1,11 +1,15 @@
 import React, { useEffect } from 'react'
-import {Container,Form,Row,Button,Col} from 'react-bootstrap'
+import {Container,Form,Row,Button,Col, ListGroup, Card} from 'react-bootstrap'
+import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import Message from '../components/Message';
 import { useDispatch,useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getuserDetails, updateUserProfile } from '../actions/userAction';
-import { USER_DETAILS_RESET, USER_UPDATE_RESET } from '../constants/userConstant';
+import { USER_UPDATE_RESET } from '../constants/userConstant';
+import Loader from '../components/Loader';
+import { userOrdersList } from '../actions/orderAction';
+import {LinkContainer} from 'react-router-bootstrap';
 
 function Profilescreen() {
   const [firstName,setfirstName] = useState('');
@@ -16,23 +20,26 @@ function Profilescreen() {
     const [message,setMessage] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
     const userLogin = useSelector((state) => state.userLogin)
     const { userInfo } = userLogin
     const userDetails = useSelector((state) => state.userDetails)
     const { loading, user } = userDetails
     const userUpdateProfile = useSelector((state) => state.userUpdate)
     const { update,error} = userUpdateProfile
-
+    const userOrders = useSelector(state=>state.userOrders);
+    const {Ordersloading,Orderserror,orders} = userOrders
     useEffect(()=>{
       if (!userInfo){
         navigate('/login');
       }
       else{
-        if (!user || !user.firstName || update){
+        if (!user || !user.firstName || update || !orders){
           dispatch({type:USER_UPDATE_RESET})
           dispatch(getuserDetails());
+          dispatch(userOrdersList());
         }
-        if (update==true){
+        if (update===true){
           alert("Updated Successfully");
           setMessage('');
           setPassword('');
@@ -44,11 +51,11 @@ function Profilescreen() {
           setEmail(user.email);
         }
       }
-    },[dispatch,userInfo,user,update,setMessage,setPassword,setConfirmPassword])
+    },[dispatch,userInfo,user,update,setMessage,setPassword,setConfirmPassword,orders])
 
     const submitHandler = (e)=>{
       e.preventDefault();
-      if (password!=confirmpassword){
+      if (password!==confirmpassword){
         setMessage("password and confirm password should match");
       }
       else{
@@ -93,8 +100,50 @@ function Profilescreen() {
                         <Button className='my-2' type='submit'>Update</Button>
                     </Form>
                 </Col>
-                <Col md={3}>
+                <Col>
                   <h1 className='m-5 text-center'>Orders</h1>
+                  {Ordersloading ? <Loader /> : Orderserror ? <Message variant='danger'>{Orderserror}</Message> :
+                    (<Row className='justify-content-center'>
+                      {orders?.map(order_each=>(
+                        <Col className='m-2' md={5} xl={4}>
+                          <Card>
+                            <ListGroup>
+                              <ListGroup.Item>
+                                Booked On: {order_each.createdAt.substring(0,10)}
+                              </ListGroup.Item>
+                              <ListGroup.Item>
+                                ShippingAddress: {order_each.shippingAddress.address} {order_each.shippingAddress.city}
+                              </ListGroup.Item>
+                              <ListGroup.Item>
+                                Items : {
+                                  order_each.orderItems.map(x=>x.name+" ") 
+                                }
+                              </ListGroup.Item>
+                              <ListGroup.Item>
+                                TotalPrice : {order_each.totalPrice}
+                              </ListGroup.Item>
+                              <ListGroup.Item>
+                                <Col>
+                                  Paid: {order_each.isPaid ? <i class="fa-solid fa-check"></i> : <i class="fa-solid fa-xmark"></i>} {<span>  </span>}
+                                </Col>
+                                <Col>
+                                  Delivered: {order_each.isDelivered ? <i class="fa-solid fa-check"></i> : <i class="fa-solid fa-xmark"></i>}
+                                </Col>
+                              </ListGroup.Item>
+                              <ListGroup.Item>
+                                Delivered On: {order_each.isDelivered ? order_each.updatedAt.substring(0,10): "-"}
+                              </ListGroup.Item>
+                              <LinkContainer to={`/order/${order_each._id}`}>
+                                <Button type="button" className="btn-block">
+                                  Click here for Details
+                                </Button>
+                              </LinkContainer>
+                            </ListGroup>
+                          </Card>
+                        </Col>
+                      ))}
+                    </Row>)
+                  }
                 </Col>
             </Row>
 

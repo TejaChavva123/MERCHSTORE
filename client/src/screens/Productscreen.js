@@ -6,8 +6,9 @@ import Rating from '../components/Rating' ;
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useSelector,useDispatch} from 'react-redux';
-
 import {detailsProduct} from '../actions/productAction';
+
+import {PRODUCT_DETAILS_RESET} from '../constants/productConstants';
 
 import Loader from '../components/Loader';
 import Message from '../components/Message';
@@ -23,6 +24,7 @@ const Productscreen = ({match}) => {
     navigate(`/cart/${id}?qty=${qty}`)
   }
   useEffect(()=>{
+    dispatch({type:PRODUCT_DETAILS_RESET});
     dispatch(detailsProduct(id));
   },[dispatch,id])
   return (
@@ -30,7 +32,7 @@ const Productscreen = ({match}) => {
         <main className='productscreen my-5'>
             <Container>
                 <Link className='btn btn-dark' to="/">
-                    Go Back
+                    Go Home
                 </Link>
                 {loading ? <Loader /> : product ?  
                 (<Row>

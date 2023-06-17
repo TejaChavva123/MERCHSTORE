@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import {Container,Form,Row,Button,Col} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import { saveAddress } from '../actions/cartAction';
 import { Navigate, useNavigate } from 'react-router-dom';
+import CheckOutHandler from '../components/CheckOutHandler';
 
 function Shippingscreen() {
     
@@ -16,7 +17,9 @@ function Shippingscreen() {
     const [state,setState] = useState(Address.state);
     const [district,setDistrict] = useState(Address.district);
     const [address,setAddress] = useState(Address.address);
-    const [country,setCountry] = useState(Address.country);
+    const [country,setCountry] = useState("India");
+    const userLogin = useSelector((state) => state.userLogin)
+    const { userInfo } = userLogin
 
     const indiaStates = [
         'Andhra Pradesh',
@@ -55,8 +58,22 @@ function Shippingscreen() {
         'Delhi',
         'Puducherry',
       ];
+
+      useEffect(()=>{
+        if (!userInfo){
+            navigate('/login');
+        }
+        console.log(state);
+        console.log(country);
+      },[userInfo])
 const submitHandler =(e)=>{
     e.preventDefault();
+    if (!state){
+        setState(indiaStates[0]);
+    }
+    if (!country){
+        setCountry("India");
+    }
     dispatch(saveAddress({address,city,district,state,country,pincode}));
     if (saved==true){
         alert("Address Saved Successfully");
@@ -66,6 +83,7 @@ const submitHandler =(e)=>{
 }
   return (
     <Container className='my-10'>
+        <CheckOutHandler tread1 tread2/>
             <Row  className='justify-content-center'>
                 <Col xs={8} md={6}>
                     <h1 className='my-5 text-center'>Shipping Address</h1>
@@ -84,7 +102,7 @@ const submitHandler =(e)=>{
                         </Form.Group>
                         <Form.Group className='my-2' controlId="stateSelect">
                             <Form.Label>State</Form.Label>
-                            <Form.Control as="select" value={state} onChange={(e)=>setState(e.target.value)}>
+                            <Form.Control as="select" value={state ? state : "Andhra Pradesh"} onChange={(e)=>setState(e.target.value)}>
                             {indiaStates.map((state, index) => (
                                 <option key={index} value={state}>
                                 {state}
