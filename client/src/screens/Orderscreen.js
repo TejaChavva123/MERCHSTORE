@@ -74,7 +74,7 @@ const Orderscreen = () => {
                 dispatch({type:LIST_USER_ORDERS_RESET})
             }
         }
-    },[dispatch,order,id,pay])
+    },[dispatch,order,id,pay,navigate])
   return (
     <div>
         <main className='placeorderscreen my-3'>

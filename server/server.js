@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path")
 const cors = require("cors");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
@@ -9,7 +10,10 @@ const userRoutes = require("./routes/userRoutes");
 const profileRoutes = require('./routes/profileRoutes');
 const orderRoutes = require("./routes/orderRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
+const adminRoutes = require("./routes/adminRoutes");
+const uploadRoutes = require("./routes/uploadRoutes");
 const authorization = require("./middleware/authorization");
+const admin = require("./middleware/admin")
 
 const app = express();
 app.use(morgan());
@@ -30,11 +34,16 @@ app.use('/api/products',ProductRoutes);
 // })
 
 app.use('/api/users',userRoutes);
+app.use('/api/upload',uploadRoutes)
 app.use('/profile',authorization,profileRoutes);
 
 
 app.use('/api/orders',authorization,orderRoutes);
 app.use('/api/payment',authorization,paymentRoutes);
+app.use('/api/admin',authorization,admin,adminRoutes);
+
+__dirname = path.resolve();
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 app.use((error,req,res,next)=>{
     res.status(error.status||500);

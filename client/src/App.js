@@ -13,6 +13,14 @@ import Shippingscreen from './screens/Shippingscreen';
 import Paymentscreen from './screens/Paymentscreen';
 import Placeorderscreen from './screens/Placeorderscreen';
 import Orderscreen from './screens/Orderscreen'
+import AdminUserListscreen from './screens/AdminUserListscreen';
+import AdminUserUpdatescreen from './screens/AdminUserUpdatescreen';
+import AdminProductListscreen from './screens/AdminProductListscreen';
+import AdminProductUpdatescreen from './screens/AdminProductUpdatescreen';
+import AdminProductCreatescreen from './screens/AdminProductCreatescreen';
+import AdminOrderListscreen from './screens/AdminOrderListscreen';
+
+
 function App() {
   return (
     <BrowserRouter>
@@ -29,6 +37,12 @@ function App() {
           <Route path='/login?/payment' element={<Paymentscreen />} />
           <Route path='/placeorder' element={<Placeorderscreen />} />
           <Route path='/order/:id' element={<Orderscreen />} />
+          <Route path='/admin/userlist' element={<AdminUserListscreen />} />
+          <Route path='/admin/user/edit/:id' element={<AdminUserUpdatescreen />} />
+          <Route path='/admin/productlist' element={<AdminProductListscreen />} />
+          <Route path ='/admin/product/edit/:id' element={<AdminProductUpdatescreen />} />
+          <Route path='/admin/product/create' element={<AdminProductCreatescreen />} />
+          <Route path='/admin/orderlist' element={<AdminOrderListscreen />} />
       </Routes>
       <Footer />
     </div>

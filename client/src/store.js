@@ -7,6 +7,7 @@ import { cartReducer } from './reducers/cartReducer';
 import { userDetailsReducer, userLoginReducer,userRegisterReducer, userUpdateReducer} from './reducers/userReducer';
 import { listUserOrdersReducer, orderDetailsReducer, orderReducer } from './reducers/orderReducer';
 import { paymentReducer, paymentUpdateReducer } from './reducers/paymentReducer';
+import { adminCreateProductReducer, adminOrderListReducer, adminProductDeleteReducer, adminProductDetailsReducer, adminProductListReducer, adminProductUpdateReducer, adminReducer, adminUserDeleteReducer, adminUserDetailsReducer, adminUserUpdateReducer } from './reducers/adminReducer';
 
 
 const reducer = combineReducers({
@@ -22,6 +23,16 @@ const reducer = combineReducers({
     payment:paymentReducer,
     paymentUpdate:paymentUpdateReducer,
     userOrders:listUserOrdersReducer,
+    admin:adminReducer,
+    adminUserDelete:adminUserDeleteReducer,
+    adminUserDetails:adminUserDetailsReducer,
+    adminUserUpdate:adminUserUpdateReducer,
+    adminProductList: adminProductListReducer,
+    adminProductDelete: adminProductDeleteReducer,
+    adminProductDetails: adminProductDetailsReducer,
+    adminProductUpdate:adminProductUpdateReducer,
+    adminProductCreate: adminCreateProductReducer,
+    adminOrdersList: adminOrderListReducer
 });
 
 

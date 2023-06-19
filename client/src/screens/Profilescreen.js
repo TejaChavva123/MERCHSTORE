@@ -12,7 +12,7 @@ import { userOrdersList } from '../actions/orderAction';
 import {LinkContainer} from 'react-router-bootstrap';
 
 function Profilescreen() {
-  const [firstName,setfirstName] = useState('');
+    const [firstName,setfirstName] = useState('');
     const [lastName,setlastName] = useState('');
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('');
@@ -34,9 +34,11 @@ function Profilescreen() {
         navigate('/login');
       }
       else{
-        if (!user || !user.firstName || update || !orders){
+        if (!user || !user.firstName || update){
           dispatch({type:USER_UPDATE_RESET})
           dispatch(getuserDetails());
+        }
+        if (!orders){
           dispatch(userOrdersList());
         }
         if (update===true){

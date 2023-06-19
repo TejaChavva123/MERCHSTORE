@@ -1,3 +1,4 @@
+import { ADMIN_USER_LIST_RESET } from "../constants/adminConstants";
 import { LIST_USER_ORDERS_RESET } from "../constants/orderConstants";
 import { USER_LOGIN_REQUEST,USER_LOGIN_FAILURE,USER_LOGIN_SUCCESS, USER_LOGOUT, USER_DETAILS_RESET } from "../constants/userConstant";
 import { USER_REGISTER_FAILURE,USER_REGISTER_SUCCESS,USER_REGISTER_REQUEST } from "../constants/userConstant";
@@ -19,9 +20,10 @@ export const userLogin = (email,password)=>async(dispatch)=>{
 
 export const userLogout = ()=>(dispatch)=>{
     localStorage.removeItem('userInfo');
+    dispatch({type:USER_LOGOUT});
     dispatch({type:USER_DETAILS_RESET});
     dispatch({type:LIST_USER_ORDERS_RESET});
-    dispatch({type:USER_LOGOUT});
+    dispatch({type:ADMIN_USER_LIST_RESET})
 }
 
 export const userRegister = (firstName,lastName,email,password)=>async(dispatch)=>{

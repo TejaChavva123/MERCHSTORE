@@ -13,6 +13,7 @@ import {PRODUCT_DETAILS_RESET} from '../constants/productConstants';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 
+
 const Productscreen = ({match}) => {
   let navigate = useNavigate();
   let {id}= useParams();
@@ -52,7 +53,7 @@ const Productscreen = ({match}) => {
                                 Price: ₹ {product.price}
                             </ListGroup.Item>
                             <ListGroup.Item>
-                                Description: Soon Will be Added
+                                {product.description}
                             </ListGroup.Item>
                         </ListGroup>
                     </Col>
