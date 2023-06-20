@@ -4,7 +4,7 @@
   "description": "Maintaing the various clubs merchandise for a college and managing them.",
   "main": "server.js",
   "scripts": {
-    "start":"node server/server",
+    "start": "node server/server",
     "server": "nodemon server/server",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
@@ -31,5 +31,8 @@
     "nodemon": "^2.0.22",
     "path": "^0.12.7",
     "razorpay": "^2.8.6"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   }
 }
