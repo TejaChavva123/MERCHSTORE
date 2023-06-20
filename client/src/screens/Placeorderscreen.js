@@ -5,6 +5,7 @@ import { Row,Col,Button,Card} from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { addOrder } from '../actions/orderAction'
 import { LIST_USER_ORDERS_RESET, ORDER_CREATE_RESET } from '../constants/orderConstants'
+import PageTitle from '../components/PageTitle'
 
 const Placeorderscreen = () => {
     const navigate = useNavigate();
@@ -42,6 +43,7 @@ const Placeorderscreen = () => {
                 <Link className='btn btn-dark' to="/payment">
                         Go Back
                 </Link>
+                <PageTitle title="Place Order" />
                 <Row>
                     <Col md={4}>
                         <ListGroup variant='flush'>

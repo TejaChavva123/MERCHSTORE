@@ -1,7 +1,7 @@
-import { ADMIN_USER_LIST_REQUEST,ADMIN_USER_LIST_SUCCESS,ADMIN_USER_LIST_FAILURE,ADMIN_USER_LIST_RESET, ADMIN_USER_DELETE_REQUEST, ADMIN_USER_DELETE_SUCCESS, ADMIN_USER_DELETE_FAILURE, ADMIN_USER_DETAILS_REQUEST, ADMIN_USER_DETAILS_SUCCESS, ADMIN_USER_DETAILS_FAILURE, ADMIN_USER_UPDATE_REQUEST, ADMIN_USER_UPDATE_SUCCESS, ADMIN_USER_UPDATE_FAILURE, ADMIN_PRODUCT_LIST_REQUEST, ADMIN_PRODUCT_LIST_FAILURE, ADMIN_PRODUCT_LIST_SUCCESS, ADMIN_PRODUCT_DELETE_REQUEST, ADMIN_PRODUCT_DELETE_SUCCESS, ADMIN_PRODUCT_DELETE_FAILURE, ADMIN_PRODUCT_UPDATE_REQUEST, ADMIN_PRODUCT_UPDATE_SUCCESS, ADMIN_PRODUCT_UPDATE_FAILURE, ADMIN_PRODUCT_DETAILS_REQUEST, ADMIN_PRODUCT_DETAILS_SUCCESS, ADMIN_PRODUCT_DETAILS_FAILURE, ADMIN_PRODUCT_CREATE_REQUEST, ADMIN_PRODUCT_CREATE_SUCCESS, ADMIN_PRODUCT_CREATE_FAILURE, ADMIN_ORDER_LIST_REQUEST, ADMIN_ORDER_LIST_SUCCESS, ADMIN_ORDER_LIST_FAILURE } from "../constants/adminConstants";
+import { ADMIN_USER_LIST_REQUEST,ADMIN_USER_LIST_SUCCESS,ADMIN_USER_LIST_FAILURE, ADMIN_USER_DELETE_REQUEST, ADMIN_USER_DELETE_SUCCESS, ADMIN_USER_DELETE_FAILURE, ADMIN_USER_DETAILS_REQUEST, ADMIN_USER_DETAILS_SUCCESS, ADMIN_USER_DETAILS_FAILURE, ADMIN_USER_UPDATE_REQUEST, ADMIN_USER_UPDATE_SUCCESS, ADMIN_USER_UPDATE_FAILURE, ADMIN_PRODUCT_LIST_REQUEST, ADMIN_PRODUCT_LIST_FAILURE, ADMIN_PRODUCT_LIST_SUCCESS, ADMIN_PRODUCT_DELETE_REQUEST, ADMIN_PRODUCT_DELETE_SUCCESS, ADMIN_PRODUCT_DELETE_FAILURE, ADMIN_PRODUCT_UPDATE_REQUEST, ADMIN_PRODUCT_UPDATE_SUCCESS, ADMIN_PRODUCT_UPDATE_FAILURE, ADMIN_PRODUCT_DETAILS_REQUEST, ADMIN_PRODUCT_DETAILS_SUCCESS, ADMIN_PRODUCT_DETAILS_FAILURE, ADMIN_PRODUCT_CREATE_REQUEST, ADMIN_PRODUCT_CREATE_SUCCESS, ADMIN_PRODUCT_CREATE_FAILURE, ADMIN_ORDER_LIST_REQUEST, ADMIN_ORDER_LIST_SUCCESS, ADMIN_ORDER_LIST_FAILURE, ADMIN_ORDER_DELIVERED_REQUEST, ADMIN_ORDER_DELIVERED_SUCCESS, ADMIN_ORDER_DELIVERED_FAILURE } from "../constants/adminConstants";
 import axios from "axios";
 import { userLogout } from "./userAction";
-import { USER_DETAILS_RESET, USER_DETAILS_SUCCESS, USER_LOGIN_SUCCESS } from "../constants/userConstant";
+import { USER_DETAILS_RESET, USER_DETAILS_SUCCESS } from "../constants/userConstant";
 import { PRODUCT_DETAILS_SUCCESS } from "../constants/productConstants";
 
 export const fetchUsersbyAdmin = ()=>async(dispatch,getState)=>{
@@ -17,7 +17,7 @@ export const fetchUsersbyAdmin = ()=>async(dispatch,getState)=>{
         dispatch({type:ADMIN_USER_LIST_SUCCESS,load:data});
     }
     catch(error){
-        if (error.response.data.message=='No Authorization'){
+        if (error.response.data.message==='No Authorization'){
             dispatch(userLogout());
         }
         dispatch({type:ADMIN_USER_LIST_FAILURE,load:error.response.data.message});
@@ -37,7 +37,7 @@ export const deleteUserByID = (id)=>async(dispatch,getState)=>{
         dispatch({type:ADMIN_USER_DELETE_SUCCESS})
     }
     catch(error){
-        if (error.response.data.message=='No Authorization'){
+        if (error.response.data.message==='No Authorization'){
             dispatch(userLogout());
         }
         dispatch({type:ADMIN_USER_DELETE_FAILURE,load:error.response.data.message});
@@ -57,7 +57,7 @@ export const fetchUserDetailsbyID = (id)=>async(dispatch,getState)=>{
         dispatch({type:ADMIN_USER_DETAILS_SUCCESS,load:data});
     }
     catch(error){
-        if (error.response.data.message=='No Authorization'){
+        if (error.response.data.message==='No Authorization'){
             dispatch(userLogout());
         }
         dispatch({type:ADMIN_USER_DETAILS_FAILURE,load:error.response.data.message});
@@ -79,7 +79,7 @@ export const updateUserByID = (user,id)=>async(dispatch,getState)=>{
         dispatch({type:USER_DETAILS_RESET})
     }
     catch(error){
-        if (error.response.data.message=='No Authorization'){
+        if (error.response.data.message==='No Authorization'){
             dispatch(userLogout());
         }
         dispatch({type:ADMIN_USER_UPDATE_FAILURE,load:error.response.data.message});
@@ -99,7 +99,7 @@ export const fetchProductsbyAdmin = ()=>async(dispatch,getState)=>{
         dispatch({type:ADMIN_PRODUCT_LIST_SUCCESS,load:data});
     }
     catch(error){
-        if (error.response.data.message=='No Authorization'){
+        if (error.response.data.message==='No Authorization'){
             dispatch(userLogout());
         }
         dispatch({type:ADMIN_PRODUCT_LIST_FAILURE,load:error.response.data.message});
@@ -119,7 +119,7 @@ export const deleteProductByID = (id)=>async(dispatch,getState)=>{
         dispatch({type:ADMIN_PRODUCT_DELETE_SUCCESS})
     }
     catch(error){
-        if (error.response.data.message=='No Authorization'){
+        if (error.response.data.message==='No Authorization'){
             dispatch(userLogout());
         }
         dispatch({type:ADMIN_PRODUCT_DELETE_FAILURE,load:error.response.data.message});
@@ -139,7 +139,7 @@ export const fetchProductDetailsbyID = (id)=>async(dispatch,getState)=>{
         dispatch({type:ADMIN_PRODUCT_DETAILS_SUCCESS,load:data});
     }
     catch(error){
-        if (error.response.data.message=='No Authorization'){
+        if (error.response.data.message==='No Authorization'){
             dispatch(userLogout());
         }
         dispatch({type:ADMIN_PRODUCT_DETAILS_FAILURE,load:error.response.data.message});
@@ -162,7 +162,7 @@ export const updateProductByID = (product,id)=>async(dispatch,getState)=>{
         dispatch({type:USER_DETAILS_RESET})
     }
     catch(error){
-        if (error.response.data.message=='No Authorization'){
+        if (error.response.data.message==='No Authorization'){
             dispatch(userLogout());
         }
         dispatch({type:ADMIN_PRODUCT_UPDATE_FAILURE,load:error.response.data.message});
@@ -182,7 +182,7 @@ export const createProduct = (product)=>async(dispatch,getState)=>{
         dispatch({type:ADMIN_PRODUCT_CREATE_SUCCESS,load:data});
     }
     catch(error){
-        if (error.response.data.message=='No Authorization'){
+        if (error.response.data.message==='No Authorization'){
             dispatch(userLogout());
         }
         dispatch({type:ADMIN_PRODUCT_CREATE_FAILURE,load:error.response.data.message});
@@ -202,9 +202,30 @@ export const fetchOrdersbyAdmin = ()=>async(dispatch,getState)=>{
         dispatch({type:ADMIN_ORDER_LIST_SUCCESS,load:data});
     }
     catch(error){
-        if (error.response.data.message=='No Authorization'){
+        if (error.response.data.message==='No Authorization'){
             dispatch(userLogout());
         }
         dispatch({type:ADMIN_ORDER_LIST_FAILURE,load:error.response.data.message});
+    }
+}
+
+export const orderDelivered = (id)=>async(dispatch,getState)=>{
+    try{
+        dispatch({type:ADMIN_ORDER_DELIVERED_REQUEST})
+        const {userLogin:{userInfo}} = getState();
+        const config = {
+            headers: {
+            authorization: `Bearer ${userInfo.token}`,
+            },
+        }
+        const {data} = await axios.get(`/api/admin/updatetodelivered/${id}`,config);
+        dispatch({type:ADMIN_ORDER_DELIVERED_SUCCESS,load:data});
+    }
+    catch(error){
+        console.log(error);
+        if (error.response.data.message==='No Authorization'){
+            dispatch(userLogout());
+        }
+        dispatch({type:ADMIN_ORDER_DELIVERED_FAILURE,load:error.response.data.message});
     }
 }

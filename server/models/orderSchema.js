@@ -52,6 +52,9 @@ const orderSchema = new schema ({
     paidAt : {
         type: Date
     },
+    deliveredAt : {
+        type: Date
+    },
     isDelivered: {
         type: Boolean
     }

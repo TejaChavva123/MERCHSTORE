@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 import { LinkContainer } from 'react-router-bootstrap';
 import { ADMIN_PRODUCT_DELETE_RESET, ADMIN_PRODUCT_LIST_RESET } from '../constants/adminConstants';
+import PageTitle from '../components/PageTitle';
 
 const AdminProductListscreen = () => {
     const navigate = useNavigate();
@@ -50,6 +51,7 @@ const AdminProductListscreen = () => {
             loading ? <Loader /> : error ? <Message variant="danger">{error}</Message> :
             (
                 <Table striped bordered hover responsive className='text-center'>
+                    <PageTitle title="Product List" />
                     <thead>
                         <tr>
                         <th>Product ID</th>

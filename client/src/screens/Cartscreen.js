@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Container, ListGroup, Image, Form, Button, Card } from 'react-bootstrap'
 import Message from '../components/Message'
 import {AddToCart,RemoveFromCart} from '../actions/cartAction'
+import PageTitle from '../components/PageTitle'
 const Cartscreen = () => {
     const params = useParams();
     const p_id = params.id;
@@ -32,6 +33,7 @@ const Cartscreen = () => {
     <div>
         <main className='my-5 cartscreen'>
       <Container>
+        <PageTitle title="Cart Screen" />
       <Row>
       <Col md={8} className='text-center'>
         <h1 className='text-center'>Shopping Cart</h1>

@@ -3,6 +3,7 @@ const asyncHandler = require("express-async-handler");
 const User = require("../models/userSchema");
 
 const admin = asyncHandler(async(req,res,next)=>{
+    console.log(req.user);
     if (req.user){
         try{
             const user_by_id = await User.findById(req.user);

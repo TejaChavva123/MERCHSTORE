@@ -12,6 +12,7 @@ import {PRODUCT_DETAILS_RESET} from '../constants/productConstants';
 
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import PageTitle from '../components/PageTitle';
 
 
 const Productscreen = ({match}) => {
@@ -36,7 +37,10 @@ const Productscreen = ({match}) => {
                     Go Home
                 </Link>
                 {loading ? <Loader /> : product ?  
-                (<Row>
+                (
+                <>
+                <PageTitle title={product.name}/>
+                <Row>
                     <Col className="my-4" md={4}>
                         <Image src={product.image} alt={product.name} fluid />
                     </Col>
@@ -50,7 +54,7 @@ const Productscreen = ({match}) => {
                                 <Rating value={product.rating} num={product.numReviews} />
                             </ListGroup.Item>
                             <ListGroup.Item>
-                                Price: ₹ {product.price}
+                                <h4>Price: ₹ {product.price}</h4>
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 {product.description}
@@ -98,7 +102,7 @@ const Productscreen = ({match}) => {
                         </Card>
                         
                     </Col>
-                </Row>):<Message variant='danger'>{error}</Message> }
+                </Row> </>):<Message variant='danger'>{error}</Message> }
             </Container>
         </main>
     </div>

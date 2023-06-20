@@ -7,6 +7,7 @@ import {listProducts} from '../actions/productAction';
 
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import PageTitle from '../components/PageTitle'
 
 const Homescreen = () => {
   const dispatch = useDispatch();
@@ -17,12 +18,13 @@ const Homescreen = () => {
   },[dispatch])
   return (
     <main className='my-2'>
+      <PageTitle />
       <Container>
       <h2 className="text-center p-5">Latest Merchandise</h2>
       {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
         (<Row>
           {products?.map(product=>(
-            <Col sm={12} md={6} lg={4} xl={3}>
+            <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
               <Product product={product}/>
             </Col>
           ))}

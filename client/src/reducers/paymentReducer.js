@@ -1,4 +1,4 @@
-import { PAYMENT_CREATE_REQUEST,PAYMENT_CREATE_SUCCESS,PAYMENT_CREATE_FAILURE, ORDER_PAYMENT_RESET,ORDER_PAYMENT_REQUEST, ORDER_PAYMENT_SUCCESS } from "../constants/paymentConstants";
+import { PAYMENT_CREATE_REQUEST,PAYMENT_CREATE_SUCCESS,PAYMENT_CREATE_FAILURE, ORDER_PAYMENT_RESET,ORDER_PAYMENT_REQUEST, ORDER_PAYMENT_SUCCESS, ORDER_PAYMENT_FAILURE } from "../constants/paymentConstants";
 
 export const paymentReducer =(state={},action)=>{
     switch(action.type){
@@ -19,7 +19,7 @@ export const paymentUpdateReducer =(state={order:{}},action)=>{
             return {loading:false}
         case ORDER_PAYMENT_SUCCESS:
             return {order:action.load,loading:false,pay:true}
-        case ORDER_PAYMENT_SUCCESS:
+        case ORDER_PAYMENT_FAILURE:
             return {loading:false,error:action.load};
         case ORDER_PAYMENT_RESET:
             return {}

@@ -7,6 +7,7 @@ import { useDispatch,useSelector } from 'react-redux';
 import {userLogin} from '../actions/userAction';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import PageTitle from '../components/PageTitle';
 
 const LoginScreen = ()=> {
     const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const LoginScreen = ()=> {
     }
   return (
   <Container className='my-10'>
+    <PageTitle title="Login Portal" />
             <Row  className='justify-content-center'>
                 <Col xs={8} md={6}>
                     <h1 className='my-5 text-center'>SIGN IN</h1>

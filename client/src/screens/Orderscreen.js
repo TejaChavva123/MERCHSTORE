@@ -9,6 +9,10 @@ import { createPayment } from '../actions/paymentAction'
 import { orderPaid } from '../actions/paymentAction'
 import { ORDER_PAYMENT_RESET } from '../constants/paymentConstants'
 import { LIST_USER_ORDERS_RESET } from '../constants/orderConstants'
+import { ADMIN_ORDER_DELIVERED_RESET } from '../constants/adminConstants'
+import { orderDelivered } from '../actions/adminAction'
+import Loader from '../components/Loader'
+import PageTitle from '../components/PageTitle'
 
 const Orderscreen = () => {
     const {id} = useParams();
@@ -24,6 +28,8 @@ const Orderscreen = () => {
     const {orderId} = payment;
     const paymentUpdate = useSelector(state=>state.paymentUpdate);
     const {pay} = paymentUpdate;
+    const adminOrderDelivery = useSelector(state=>state.adminOrderDelivery);
+    const {successDelivery} = adminOrderDelivery;
     let paymentResult='';
     const openRazorpayCheckout = () => {
         const options = {
@@ -58,11 +64,19 @@ const Orderscreen = () => {
             openRazorpayCheckout();
         }
     }
+    const deliveryHandler = ()=>{
+        dispatch(orderDelivered(id));
+        if (successDelivery){
+            alert("Updated Successfully");
+            navigate('/admin/orderlist')
+        }
+    }
     useEffect(()=>{
         if (!userInfo){
             navigate('/login');
         }
-        if (!order||order._id!==id||pay){
+        if (!order||order._id!==id||pay||successDelivery){
+            dispatch({type:ADMIN_ORDER_DELIVERED_RESET})
             dispatch({type:ORDER_PAYMENT_RESET})
             dispatch(getorderDetails(id));
         }
@@ -70,15 +84,17 @@ const Orderscreen = () => {
             if (!order.isPaid){
                 dispatch(createPayment(id));
             }
-            else if (order.isPaid){
+            else if (order.isPaid || order.isDelivered){
                 dispatch({type:LIST_USER_ORDERS_RESET})
             }
         }
-    },[dispatch,order,id,pay,navigate])
+    },[dispatch,order,id,pay,navigate,successDelivery,userInfo])
   return (
     <div>
         <main className='placeorderscreen my-3'>
-            <Container>
+            {loading ? <Loader /> : error ? <Message variant="danger">{error}</Message> :
+            (<Container>
+                <PageTitle title="Order Details" />
                 <Row>
                     <Col md={4}>
                         <ListGroup variant='flush'>
@@ -146,9 +162,17 @@ const Orderscreen = () => {
                                     !order.isPaid ?
                                 <ListGroup.Item>
                                     <Button  type='button'
-                                className='btn-block' onClick={paymentHandler}>Pay the Amount</Button>
-                                </ListGroup.Item> : <Button type="button" className='btn-block'>Thank You for purchasing</Button>
+                                className='btn-block' onClick={paymentHandler}>Pay the Amount</Button> 
+                                </ListGroup.Item> : (userInfo.isAdmin && order.isPaid && !order.isDelivered) ? 
+                                <ListGroup.Item>
+                                    <Button type="button" className='btn-block' onClick={deliveryHandler}>Mark as Delivered</Button>
+                                </ListGroup.Item> : (userInfo.isAdmin && order.isPaid && order.isDelivered) ?
+                                <ListGroup.Item>
+                                    <Button type="button" className='btn-block'>Order Request Completed</Button>
+                                </ListGroup.Item> :
+                                <Button type="button" className='btn-block'>Thank You for purchasing</Button>
                                 }
+
                             </ListGroup>
                         </Card>
                     </Col>
@@ -181,7 +205,8 @@ const Orderscreen = () => {
                     </Col>
                 </Row>
 
-            </Container>
+            </Container>)
+         }
 
         </main>
       

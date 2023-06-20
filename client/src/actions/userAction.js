@@ -52,7 +52,7 @@ export const getuserDetails =()=>async(dispatch,getState)=> {
         dispatch({type:USER_DETAILS_SUCCESS,load:data});
     }
     catch(error){
-        if (error.response.data.message=='No Authorization'){
+        if (error.response.data.message==='No Authorization'){
             dispatch(userLogout());
         }
         dispatch({type:USER_DETAILS_FAILURE,load:error.response.data.message});
@@ -74,7 +74,7 @@ export const updateUserProfile = (user)=>async(dispatch,getState)=>{
         localStorage.setItem('userInfo', JSON.stringify(data))
     }
     catch(error){
-        if (error.response.data.message=='No Authorization'){
+        if (error.response.data.message==='No Authorization'){
             dispatch(userLogout());
         }
         dispatch({type:USER_UPDATE_FAILURE,load:error.response.data.message});

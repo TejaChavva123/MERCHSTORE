@@ -7,6 +7,7 @@ import { useDispatch,useSelector } from 'react-redux';
 import {userRegister} from '../actions/userAction';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import PageTitle from '../components/PageTitle';
 
 const RegistrationScreen = ()=> {
     const dispatch = useDispatch();
@@ -24,13 +25,13 @@ const RegistrationScreen = ()=> {
 
     useEffect(()=>{
         if (userInfo){
-            navigate(redirect)
+            navigate('/')
         }
         // dispatch(userLogin(email,password));
     },[dispatch,userInfo,redirect])
     const submitHandler = (e)=>{
         e.preventDefault();
-        if (password!=confirmpassword){
+        if (password!==confirmpassword){
             setMessage("password and confirm password should match");
         }
         else{
@@ -39,6 +40,7 @@ const RegistrationScreen = ()=> {
     }
   return (
   <Container className='my-10'>
+    <PageTitle title="New User Registration Portal" />
             <Row  className='justify-content-center'>
                 <Col xs={8} md={6}>
                     <h1 className='my-5 text-center'>SIGN IN</h1>
@@ -66,7 +68,7 @@ const RegistrationScreen = ()=> {
                             <Form.Label>Confirm Password</Form.Label>
                             <Form.Control type='password' placeholder='Enter the Confirm Password' onChange={(e)=>setConfirmPassword(e.target.value)}></Form.Control>
                         </Form.Group>
-                        <Button className='my-2' type='submit' variant='primary'>Log In</Button>
+                        <Button className='my-2' type='submit' variant='primary'>Register</Button>
                     </Form>
                     <Row className='my-2 py-8'>
                         <Col>

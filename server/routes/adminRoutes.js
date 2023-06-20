@@ -148,7 +148,6 @@ router.post('/createProduct',asyncHandler(async(req,res,next)=>{
         }
         const product = new Product(product_to_be_saved);
         const saved_new_product = await product.save();
-        console.log(saved_new_product);
         res.json(saved_new_product);
         
     }
@@ -166,6 +165,23 @@ router.get('/getOrders',asyncHandler(async(req,res,next)=>{
         next(error);
     }
 }))
+
+router.get('/updatetodelivered/:id',asyncHandler(async(req,res,next)=>{
+    try{
+        const order = await Order.findById(req.params.id);
+        if (order){
+            order.isDelivered = true
+            order.deliveredAt = Date.now()
+        }
+        const updated_order = await order.save();
+        res.json(updated_order);
+    }
+    catch(error){
+        next(error);
+    }
+    
+}))
+
 
 
 module.exports = router;

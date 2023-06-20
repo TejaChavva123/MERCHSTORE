@@ -7,6 +7,7 @@ import Message from '../components/Message';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ADMIN_PRODUCT_UPDATE_RESET } from '../constants/adminConstants';
 import axios from 'axios';
+import PageTitle from '../components/PageTitle';
 const AdminProductUpdatescreen = () => {
     const {id} = useParams();
     const dispatch = useDispatch();
@@ -63,7 +64,7 @@ const AdminProductUpdatescreen = () => {
             'Content-Type': 'multipart/form-data',
           },
         }
-        const { data } = await axios.post('/api/upload', formData)
+        const { data } = await axios.post('/api/upload', formData,config)
         setImage(data)
         setUpload(false)
       } 
@@ -89,6 +90,7 @@ const AdminProductUpdatescreen = () => {
     }
   return (
     <Container className='justify-content-center my-10 py-5'>
+      <PageTitle title="Product Updation" />
           <Row className='justify-content-center'>
             <Col md={5}>
             <h1 className='my-5 text-center'>Product Profile</h1>

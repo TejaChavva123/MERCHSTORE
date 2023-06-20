@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import {Row,Col,Image,ListGroup,Card,Button,Form, Container} from 'react-bootstrap';
+import {Button,Container} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
@@ -8,6 +8,7 @@ import Table from 'react-bootstrap/Table';
 import { LinkContainer } from 'react-router-bootstrap';
 import { fetchOrdersbyAdmin } from '../actions/adminAction';
 import { ADMIN_ORDER_LIST_RESET } from '../constants/adminConstants';
+import PageTitle from '../components/PageTitle';
 const AdminOrderListscreen = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -24,13 +25,14 @@ const AdminOrderListscreen = () => {
         else{
             navigate('/login');
         }
-    },[dispatch])
+    },[dispatch,userInfo,navigate])
   return (
     <Container className="my-3">
         {
             loading ? <Loader /> : error ? <Message variant="danger">{error}</Message> :
             (
                 <Table striped bordered hover responsive className='text-center'>
+                    <PageTitle title="Orders List" />
                     <thead>
                         <tr>
                         <th>Order ID</th>
@@ -56,7 +58,7 @@ const AdminOrderListscreen = () => {
                                 <td>{order.createdAt.substring(0,10)}</td>
                                 <td>{order.shippingAddress.state}</td>
                                 <td>{order.totalPrice} INR</td>
-                                <td>{order.isPaid ? order.paidAt : <i class="fa-solid fa-xmark"></i>}</td>
+                                <td>{order.isPaid ? order.paidAt.substring(0,10) : <i class="fa-solid fa-xmark"></i>}</td>
                                 <td>{order.isDelivered ? order.updatedAt.substring(0,10): <i class="fa-solid fa-xmark"></i>}</td>
                                 <td>
                                     <LinkContainer to={`/order/${order._id}`}>

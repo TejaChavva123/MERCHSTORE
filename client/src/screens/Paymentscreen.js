@@ -5,6 +5,7 @@ import CheckOutHandler from '../components/CheckOutHandler';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { savePaymentMethod } from '../actions/cartAction';
+import PageTitle from '../components/PageTitle';
 
 const Paymentscreen = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const Paymentscreen = () => {
   }
   return (
     <Container className='my-10'>
+        <PageTitle title="Payment" />
         <CheckOutHandler tread1 tread2 tread3 />
         <Row  className='justify-content-center'>
             <Col xs={8} md={8}>

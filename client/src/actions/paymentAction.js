@@ -14,7 +14,7 @@ export const createPayment = (id) => async(dispatch,getState)=>{
         dispatch({type:PAYMENT_CREATE_SUCCESS,load:response.data.orderId});
     }
     catch(error){
-        if (error.response.data.message=='No Authorization'){
+        if (error.response.data.message==='No Authorization'){
             dispatch(userLogout());
         }
         dispatch({type:PAYMENT_CREATE_FAILURE,load:error.response.data.message});
@@ -34,8 +34,7 @@ export const orderPaid = (id,paymentResult)=>async(dispatch,getState)=>{
         dispatch({type:ORDER_PAYMENT_SUCCESS,load:data});
     }
     catch(error){
-        console.log(error);
-        if (error.response.data.message=='No Authorization'){
+        if (error.response.data.message==='No Authorization'){
             dispatch(userLogout());
         }
         dispatch({type:ORDER_PAYMENT_FAILURE,load:error.response.data.message});

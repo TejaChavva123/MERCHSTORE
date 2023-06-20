@@ -3,8 +3,9 @@ import { useState } from 'react';
 import {Container,Form,Row,Button,Col} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import { saveAddress } from '../actions/cartAction';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import CheckOutHandler from '../components/CheckOutHandler';
+import PageTitle from '../components/PageTitle';
 
 function Shippingscreen() {
     
@@ -63,8 +64,6 @@ function Shippingscreen() {
         if (!userInfo){
             navigate('/login');
         }
-        console.log(state);
-        console.log(country);
       },[userInfo])
 const submitHandler =(e)=>{
     e.preventDefault();
@@ -75,7 +74,7 @@ const submitHandler =(e)=>{
         setCountry("India");
     }
     dispatch(saveAddress({address,city,district,state,country,pincode}));
-    if (saved==true){
+    if (saved===true){
         alert("Address Saved Successfully");
         navigate('/payment');
     }
@@ -83,6 +82,7 @@ const submitHandler =(e)=>{
 }
   return (
     <Container className='my-10'>
+        <PageTitle title="Shipping" />
         <CheckOutHandler tread1 tread2/>
             <Row  className='justify-content-center'>
                 <Col xs={8} md={6}>

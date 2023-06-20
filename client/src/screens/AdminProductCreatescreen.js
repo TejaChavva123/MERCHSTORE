@@ -2,13 +2,12 @@ import React, { useEffect,useState } from 'react'
 import {Container,Form,Row,Button,Col} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import { createProduct } from '../actions/adminAction';
-import Loader from '../components/Loader';
 import Message from '../components/Message';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ADMIN_PRODUCT_CREATE_RESET } from '../constants/adminConstants';
+import PageTitle from '../components/PageTitle';
 const AdminProductCreatescreen = () => {
-    const {id} = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const userLogin = useSelector((state) => state.userLogin)
@@ -76,6 +75,7 @@ const AdminProductCreatescreen = () => {
     }
   return (
     <Container className='justify-content-center my-10 py-5'>
+      <PageTitle title="Create a Product" />
     <Row className='justify-content-center'>
       <Col md={5}>
       <h1 className='my-5 text-center'>Create New Product</h1>

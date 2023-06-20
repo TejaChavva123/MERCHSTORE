@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import {Container,Form,Row,Button,Col, ListGroup, Card} from 'react-bootstrap'
-import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import Message from '../components/Message';
 import { useDispatch,useSelector } from 'react-redux';
@@ -10,6 +9,7 @@ import { USER_UPDATE_RESET } from '../constants/userConstant';
 import Loader from '../components/Loader';
 import { userOrdersList } from '../actions/orderAction';
 import {LinkContainer} from 'react-router-bootstrap';
+import PageTitle from '../components/PageTitle';
 
 function Profilescreen() {
     const [firstName,setfirstName] = useState('');
@@ -20,7 +20,6 @@ function Profilescreen() {
     const [message,setMessage] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const location = useLocation();
     const userLogin = useSelector((state) => state.userLogin)
     const { userInfo } = userLogin
     const userDetails = useSelector((state) => state.userDetails)
@@ -73,6 +72,7 @@ function Profilescreen() {
     }
   return (
     <Container className='my-10 py-5'>
+      <PageTitle title="User Profile" />
       <Row>
                 <Col md={3}>
                     <h1 className='my-5 text-center'>Profile</h1>

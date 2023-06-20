@@ -1,11 +1,12 @@
 import React, { useEffect,useState } from 'react'
-import {Container,Form,Row,Button,Col, ListGroup, Card} from 'react-bootstrap'
+import {Container,Form,Row,Button,Col} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserDetailsbyID, updateUserByID } from '../actions/adminAction';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ADMIN_USER_UPDATE_RESET } from '../constants/adminConstants';
+import PageTitle from '../components/PageTitle';
 
 const AdminUserUpdatescreen = () => {
    const adminUserDetails = useSelector(state=>state.adminUserDetails);
@@ -69,6 +70,7 @@ const AdminUserUpdatescreen = () => {
                       loading ? <Loader /> : error ? <Message variant="danger">{error}</Message> :
                       (
                         <Form>
+                          <PageTitle title="User Updation" />
                           <Form.Group className='my-2' controlId='firstName'>
                               <Form.Label>First Name</Form.Label>
                               <Form.Control type='name' value={firstName} placeholder='Enter the first Name' autoComplete="off" onChange={(e)=>setfirstName(e.target.value)}></Form.Control>

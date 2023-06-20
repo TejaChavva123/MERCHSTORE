@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import {Row,Col,Image,ListGroup,Card,Button,Form, Container} from 'react-bootstrap';
+import {Button,Container} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
@@ -7,8 +7,8 @@ import { deleteUserByID, fetchUsersbyAdmin } from '../actions/adminAction';
 import { useNavigate } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Alert } from 'bootstrap';
 import { ADMIN_USER_DELETE_RESET, ADMIN_USER_LIST_RESET } from '../constants/adminConstants';
+import PageTitle from '../components/PageTitle';
 
 const AdminUserListscreen = () => {
     const navigate = useNavigate();
@@ -41,6 +41,7 @@ const AdminUserListscreen = () => {
             loading ? <Loader /> : error ? <Message variant="danger">{error}</Message> :
             (
                 <Table striped bordered hover responsive className='text-center'>
+                    <PageTitle title="Users List" />
                     <thead>
                         <tr>
                         <th>ID</th>
