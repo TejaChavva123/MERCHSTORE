@@ -1,5 +1,7 @@
 # MERCHSTORE
 
+One-stop solution for students to explore the diverse club and department merchandise. The student can book the merchandise and track the delivery status, and the website is able to accept payments, which are done by integrating the Razorpay gateway service. Also manages the users, products (merchandise), and orders.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
