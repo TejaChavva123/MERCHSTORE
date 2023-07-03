@@ -28,11 +28,11 @@ const AdminOrderListscreen = () => {
     },[dispatch,userInfo,navigate])
   return (
     <Container className="my-3">
+        <PageTitle title="Orders List" />
         {
             loading ? <Loader /> : error ? <Message variant="danger">{error}</Message> :
             (
                 <Table striped bordered hover responsive className='text-center'>
-                    <PageTitle title="Orders List" />
                     <thead>
                         <tr>
                         <th>Order ID</th>

@@ -26,6 +26,7 @@ const AdminProductUpdatescreen = () => {
     const [image, setImage] = useState('')
     const [countInStock, setCountInStock] = useState(0)
     const [description, setDescription] = useState('')
+    const [selectedSizes, setSelectedSizes] = useState([]);
     const [upload,setUpload] = useState(false);
     
     useEffect(()=>{
@@ -42,6 +43,7 @@ const AdminProductUpdatescreen = () => {
             setCategory(product.category)
             setCountInStock(product.countInStock)
             setDescription(product.description)
+            setSelectedSizes(product.sizes);
         }
         if (successUpdate){
             alert("Updated Successfully");
@@ -64,7 +66,7 @@ const AdminProductUpdatescreen = () => {
             'Content-Type': 'multipart/form-data',
           },
         }
-        const { data } = await axios.post('/api/upload', formData,config)
+        const { data } = await axios.post(`/api/upload`, formData,config)
         setImage(data)
         setUpload(false)
       } 
@@ -74,6 +76,15 @@ const AdminProductUpdatescreen = () => {
 
 
     }
+    const handleCheckboxChange = (event) => {
+      const { value, checked } = event.target;
+      if (checked) {
+        setSelectedSizes([...selectedSizes, value]);
+      } else {
+        setSelectedSizes(selectedSizes.filter((size) => size !== value));
+      }
+    };
+  
 
     const submitHandler = (e)=>{
       e.preventDefault();
@@ -84,7 +95,8 @@ const AdminProductUpdatescreen = () => {
         brand:brand,
         countInStock:countInStock,
         description:description,
-        image:image
+        image:image,
+        sizes:selectedSizes
       }
       dispatch(updateProductByID(product_to_update,id));
     }
@@ -127,7 +139,62 @@ const AdminProductUpdatescreen = () => {
                                     value={countInStock}
                                     onChange={(e) => setCountInStock(e.target.value)}
                                 ></Form.Control>
-                            </Form.Group>
+                          </Form.Group>
+                          <Form.Group controlId="sizes">
+                        <Form.Label>Sizes:</Form.Label>
+                        <div>
+                          <Form.Check
+                            inline
+                            label="XS"
+                            value="XS"
+                            onChange={handleCheckboxChange}
+                            checked={selectedSizes.includes('XS')}
+                          />
+                          <Form.Check
+                            inline
+                            label="S"
+                            value="S"
+                            onChange={handleCheckboxChange}
+                            checked={selectedSizes.includes('S')}
+                          />
+                          <Form.Check
+                            inline
+                            label="M"
+                            value="M"
+                            onChange={handleCheckboxChange}
+                            checked={selectedSizes.includes('M')}
+                          />
+                          <Form.Check
+                            inline
+                            label="L"
+                            value="L"
+                            onChange={handleCheckboxChange}
+                            checked={selectedSizes.includes('L')}
+                          />
+                          <Form.Check
+                            inline
+                            label="XL"
+                            value="XL"
+                            onChange={handleCheckboxChange}
+                            checked={selectedSizes.includes('XL')}
+                          />
+                          <Form.Check
+                            inline
+                            label="XXL"
+                            value="XXL"
+                            onChange={handleCheckboxChange}
+                            checked={selectedSizes.includes('XXL')}
+                          />
+                          <Form.Check
+                            inline
+                            label="XXXL"
+                            value="XXXL"
+                            onChange={handleCheckboxChange}
+                            checked={selectedSizes.includes('XXXL')}
+                          />
+                        </div>
+                      </Form.Group>
+
                             <Form.Group controlId='image'>
                                 <Form.Label>Image</Form.Label>
                                 <Form.Control
@@ -137,12 +204,6 @@ const AdminProductUpdatescreen = () => {
                                     onChange={(e) => setImage(e.target.value)}
                                 ></Form.Control>
                                 <Form.Control  type="file" id="image-file" label="choose file" onChange={fileHandler} />
-                                {/* <Form.File
-                                    id='image-file'
-                                    label='Choose File'
-                                    custom
-                                    onChange={fileHandler}
-                               /> */}
                             </Form.Group>
                           <Button onClick={submitHandler} className='my-2' type='submit'>Update</Button>
                         </Form> 

@@ -9,7 +9,7 @@ import axios from 'axios';
 export const userLogin = (email,password)=>async(dispatch)=>{
     try{
         dispatch({type:USER_LOGIN_REQUEST})
-        const info = await axios.post('/api/users/login',{email,password});
+        const info = await axios.post(`/api/users/login`,{email,password});
         dispatch({type:USER_LOGIN_SUCCESS,load:info.data});
         localStorage.setItem('userInfo',JSON.stringify(info.data));
     }
@@ -29,7 +29,7 @@ export const userLogout = ()=>(dispatch)=>{
 export const userRegister = (firstName,lastName,email,password)=>async(dispatch)=>{
     try{
         dispatch({type:USER_REGISTER_REQUEST})
-        const info = await axios.post('/api/users/register',{firstName,lastName,email,password});
+        const info = await axios.post(`/api/users/register`,{firstName,lastName,email,password});
         dispatch({type:USER_REGISTER_SUCCESS,load:info.data});
         dispatch({type:USER_LOGIN_SUCCESS,load:info.data});
         localStorage.setItem('userInfo',JSON.stringify(info.data));
@@ -48,7 +48,7 @@ export const getuserDetails =()=>async(dispatch,getState)=> {
               authorization: `Bearer ${userInfo.token}`,
             },
         }
-        const { data } = await axios.get('/profile/getDetails', config);
+        const { data } = await axios.get(`/profile/getDetails`, config);
         dispatch({type:USER_DETAILS_SUCCESS,load:data});
     }
     catch(error){
@@ -68,7 +68,7 @@ export const updateUserProfile = (user)=>async(dispatch,getState)=>{
               authorization: `Bearer ${userInfo.token}`,
             },
         }
-        const { data } = await axios.put('/profile/updateDetails',user,config);
+        const { data } = await axios.put(`/profile/updateDetails`,user,config);
         dispatch({type:USER_UPDATE_SUCCESS,load:data});
         dispatch({type:USER_LOGIN_SUCCESS,load:data});
         localStorage.setItem('userInfo', JSON.stringify(data))

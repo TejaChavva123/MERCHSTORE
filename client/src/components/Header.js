@@ -21,15 +21,10 @@ const Header = () => {
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
                 <Container>
                     <LinkContainer to="/">
-                      <Navbar.Brand>MERCHSTORE</Navbar.Brand>
+                      <Navbar.Brand><i class="fa-solid fa-store"></i> MERCHSTORE</Navbar.Brand>
                     </LinkContainer>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav>
-                            <LinkContainer to="/Products">
-                              <Nav.Link>Products</Nav.Link>
-                            </LinkContainer>
-                        </Nav>
                         <Nav className="ml-auto">
                             <LinkContainer  to="/cart">
                               <Nav.Link><i className='fas fa-shopping-cart'></i> &nbsp;Cart</Nav.Link>
