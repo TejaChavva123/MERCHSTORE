@@ -4,6 +4,7 @@ import { userLogout } from "./userAction";
 import { USER_DETAILS_RESET, USER_DETAILS_SUCCESS } from "../constants/userConstant";
 import { PRODUCT_DETAILS_SUCCESS } from "../constants/productConstants";
 
+
 export const fetchUsersbyAdmin = ()=>async(dispatch,getState)=>{
     try{
         dispatch({type:ADMIN_USER_LIST_REQUEST});
@@ -13,7 +14,7 @@ export const fetchUsersbyAdmin = ()=>async(dispatch,getState)=>{
               authorization: `Bearer ${userInfo.token}`,
             },
         }
-        const {data} = await axios.get('/api/admin/getUsers',config);
+        const {data} = await axios.get(`/api/admin/getUsers`,config);
         dispatch({type:ADMIN_USER_LIST_SUCCESS,load:data});
     }
     catch(error){
@@ -95,7 +96,7 @@ export const fetchProductsbyAdmin = ()=>async(dispatch,getState)=>{
               authorization: `Bearer ${userInfo.token}`,
             },
         }
-        const {data} = await axios.get('/api/admin/getProducts',config);
+        const {data} = await axios.get(`/api/admin/getProducts`,config);
         dispatch({type:ADMIN_PRODUCT_LIST_SUCCESS,load:data});
     }
     catch(error){
@@ -178,7 +179,7 @@ export const createProduct = (product)=>async(dispatch,getState)=>{
               authorization: `Bearer ${userInfo.token}`,
             },
         }
-        const {data} = await axios.post('/api/admin/createProduct',product,config);
+        const {data} = await axios.post(`/api/admin/createProduct`,product,config);
         dispatch({type:ADMIN_PRODUCT_CREATE_SUCCESS,load:data});
     }
     catch(error){
@@ -198,7 +199,7 @@ export const fetchOrdersbyAdmin = ()=>async(dispatch,getState)=>{
               authorization: `Bearer ${userInfo.token}`,
             },
         }
-        const {data} = await axios.get('/api/admin/getOrders',config);
+        const {data} = await axios.get(`/api/admin/getOrders`,config);
         dispatch({type:ADMIN_ORDER_LIST_SUCCESS,load:data});
     }
     catch(error){

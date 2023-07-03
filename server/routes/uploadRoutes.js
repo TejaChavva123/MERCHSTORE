@@ -22,9 +22,12 @@ const storage = multer.diskStorage({
 // Create multer upload instance
 const upload = multer({ storage });
 
+
 // Handle POST request for image upload
 router.post('/', upload.single('image'), (req, res) => {
+  console.log("request received")
   try{
+    console.log(req.file)
     if (!req.file) {
       console.log("FILE NOT FOUND");
       return res.status(400).send('No image file');

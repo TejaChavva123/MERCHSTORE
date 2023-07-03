@@ -18,7 +18,8 @@ const orderSchema = new schema ({
                 type : mongoose.Schema.Types.ObjectId,
                 required: true,
                 ref: 'Product'
-            }
+            },
+            size:{type:String,required:true}
         }
     ],
     shippingAddress:{

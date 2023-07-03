@@ -12,7 +12,7 @@ export const addOrder = (order)=>async(dispatch,getState)=>{
             authorization: `Bearer ${userInfo.token}`,
             },
         }
-        const info = await axios.post('/api/orders/addOrder',order,config);
+        const info = await axios.post(`/api/orders/addOrder`,order,config);
         dispatch({type:ORDER_CREATE_SUCCESS,load:info.data}); 
         dispatch({type:CART_CLEAR});
     }
@@ -53,7 +53,7 @@ export const userOrdersList = ()=>async(dispatch,getState)=>{
             authorization: `Bearer ${userInfo.token}`,
             },
         }
-        const {data} = await axios.get('/api/orders/userOrders',config);
+        const {data} = await axios.get(`/api/orders/userOrders`,config);
         dispatch({type:LIST_USER_ORDERS_SUCCESS,load:data});
     }
     catch(error){

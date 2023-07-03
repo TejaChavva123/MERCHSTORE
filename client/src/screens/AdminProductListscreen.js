@@ -38,6 +38,7 @@ const AdminProductListscreen = () => {
     },[dispatch,successDelete])
   return (
     <Container className="my-3">
+        <PageTitle title="Product List" />
         <Row className='justify-content-end'>
             <Col>
                 <LinkContainer to="/admin/product/create">
@@ -51,7 +52,6 @@ const AdminProductListscreen = () => {
             loading ? <Loader /> : error ? <Message variant="danger">{error}</Message> :
             (
                 <Table striped bordered hover responsive className='text-center'>
-                    <PageTitle title="Product List" />
                     <thead>
                         <tr>
                         <th>Product ID</th>

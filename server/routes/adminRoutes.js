@@ -120,6 +120,7 @@ router.put('/updateproductbyid/:id',asyncHandler(async(req,res,next)=>{
             product.description = req.body.description || product.description;
             product.price = req.body.price || product.price;
             product.countInStock = req.body.countInStock || product.countInStock;
+            product.sizes = req.body.sizes || product.sizes;
             const updated_product = await product.save();
             res.json(updated_product)
         }
@@ -135,7 +136,7 @@ router.put('/updateproductbyid/:id',asyncHandler(async(req,res,next)=>{
 
 router.post('/createProduct',asyncHandler(async(req,res,next)=>{
     try{
-        const {name,image,brand,category,price,description,countInStock} = req.body;
+        const {name,image,brand,category,price,description,countInStock,sizes} = req.body;
         const product_to_be_saved = {
             name:name,
             image:image,
@@ -144,7 +145,8 @@ router.post('/createProduct',asyncHandler(async(req,res,next)=>{
             price:price,
             description:description,
             countInStock:countInStock,
-            user:req.user
+            user:req.user,
+            sizes:sizes
         }
         const product = new Product(product_to_be_saved);
         const saved_new_product = await product.save();

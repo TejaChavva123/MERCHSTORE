@@ -36,6 +36,7 @@ function Profilescreen() {
         if (!user || !user.firstName || update){
           dispatch({type:USER_UPDATE_RESET})
           dispatch(getuserDetails());
+          dispatch(userOrdersList());
         }
         if (!orders){
           dispatch(userOrdersList());

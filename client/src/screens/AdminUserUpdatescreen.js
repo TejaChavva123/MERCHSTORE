@@ -62,6 +62,7 @@ const AdminUserUpdatescreen = () => {
 
   return (
     <Container className='justify-content-center my-10 py-5'>
+      <PageTitle title="User Updation" />
           <Row className='justify-content-center'>
             <Col md={5}>
             <h1 className='my-5 text-center'>Profile</h1>
@@ -70,7 +71,6 @@ const AdminUserUpdatescreen = () => {
                       loading ? <Loader /> : error ? <Message variant="danger">{error}</Message> :
                       (
                         <Form>
-                          <PageTitle title="User Updation" />
                           <Form.Group className='my-2' controlId='firstName'>
                               <Form.Label>First Name</Form.Label>
                               <Form.Control type='name' value={firstName} placeholder='Enter the first Name' autoComplete="off" onChange={(e)=>setfirstName(e.target.value)}></Form.Control>

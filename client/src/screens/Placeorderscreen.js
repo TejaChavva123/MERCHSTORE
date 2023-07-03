@@ -84,6 +84,9 @@ const Placeorderscreen = () => {
                                                 <Col xs={8} md={8}>
                                                 {item.qty}x{item.price}Rs = {item.qty * item.price}Rs
                                                 </Col>
+                                                <Col>
+                                                 Size - {item.size}
+                                                </Col>
                                             </Row>
                                         </ListGroup.Item>
                                         ))}

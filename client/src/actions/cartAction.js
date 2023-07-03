@@ -2,15 +2,20 @@ import axios from 'axios';
 import { ADD_TO_CART,REMOVE_FROM_CART, SAVE_PAYMENT_METHOD } from '../constants/cartConstant';
 import { SAVE_SHIPPING_ADDRESS } from '../constants/cartConstant';
 
-export const AddToCart = (id,qty)=>async(dispatch,getState)=>{
+export const AddToCart = (id,qty,size)=>async(dispatch,getState)=>{
     const info = await axios.get(`/api/products/${id}`);
+    if (!size){
+        size = info.data.sizes[0];
+    }
     dispatch({type:ADD_TO_CART,load:{
         product:info.data._id,
         name:info.data.name,
         image:info.data.image,
         price:info.data.price,
         countInStock:info.data.countInStock,
-        qty
+        sizes: info.data.sizes,
+        qty,
+        size
     }})
     localStorage.setItem('cartItems',JSON.stringify(getState().cart.cartItems));
 }

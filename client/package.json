@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "proxy": "https://merchstorebackend.onrender.com",
+  "proxy":"http://127.0.0.1:5000/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -24,7 +24,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "cross-env API_PROXY=https://merchstorebackend.onrender.com react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -10,17 +10,18 @@ const Cartscreen = () => {
     const p_id = params.id;
     const location = useLocation();
     const navigate = useNavigate();
-    const qty = location.search ? Number(location.search.split('=')[1]) : 1;
+    const qty = location.search ? Number(location.search.split('=')[1].split('?')[0]) : 1;
+    const size = location.search ? location.search.split('=')[2] : '';
     const dispatch = useDispatch();
     const cart = useSelector(state=>state.cart);
     const {cartItems} = cart;
 
     useEffect(()=>{
         if (p_id){
-            dispatch(AddToCart(p_id,qty));
+            dispatch(AddToCart(p_id,qty,size));
         }
         navigate('/cart');
-    },[dispatch,qty,p_id]);
+    },[dispatch,qty,p_id,size]);
 
     const removeFromCartHandler = (id)=>{
         dispatch(RemoveFromCart(id));
@@ -34,8 +35,8 @@ const Cartscreen = () => {
         <main className='my-5 cartscreen'>
       <Container>
         <PageTitle title="Cart Screen" />
-      <Row>
-      <Col md={8} className='text-center'>
+      <Row className='justify-content-center'>
+      <Col md={10} className='text-center'>
         <h1 className='text-center'>Shopping Cart</h1>
         {cartItems.length === 0 ? (
           <Message>
@@ -46,17 +47,17 @@ const Cartscreen = () => {
             {cartItems.map((item) => (
               <ListGroup.Item key={item.product}>
                 <Row>
-                  <Col md={2}>
+                  <Col md={2} className='my-3'>
                     <Image src={item.image} alt={item.name} fluid rounded />
                   </Col>
-                  <Col md={3}>
+                  <Col md={3} className='my-3'>
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
                   </Col>
-                  <Col md={2}>₹ {item.price}</Col>
-                  <Col md={2}>
+                  <Col md={2} className='my-3'>₹ {item.price}</Col>
+                  <Col md={2} className='my-3'>
                     <Form.Control as='select' value={item.qty} onChange={(e) =>
                         dispatch(
-                          AddToCart(item.product, Number(e.target.value))
+                          AddToCart(item.product, Number(e.target.value),item.size)
                         )
                       }
                     >
@@ -67,8 +68,22 @@ const Cartscreen = () => {
                       ))}
                     </Form.Control>
                   </Col>
-                  <Col md={2}>
-                    <Button type='button' variant='light' onClick={() => removeFromCartHandler(item.product)}>
+                  <Col md={2} className='my-3'>
+                    <Form.Control as='select' value={item.size} onChange={(e) =>
+                        dispatch(
+                          AddToCart(item.product, item.qty,e.target.value)
+                        )
+                      }
+                    >
+                      {item.sizes?.map((x) => (
+                        <option key={x} value={x}>
+                          {x}
+                        </option>
+                      ))}
+                    </Form.Control>
+                  </Col>
+                  <Col md={1} className='my-3'>
+                    <Button type='button' variant='primary' onClick={() => removeFromCartHandler(item.product)}>
                       <i className='fas fa-trash'></i>
                     </Button>
                   </Col>
@@ -78,7 +93,9 @@ const Cartscreen = () => {
           </ListGroup>
         )}
       </Col>
-      <Col md={4}>
+      </Row>
+      <Row className='justify-content-center'>
+      <Col md={4} className='my-5'>
         <Card>
           <ListGroup variant='flush'>
             <ListGroup.Item>

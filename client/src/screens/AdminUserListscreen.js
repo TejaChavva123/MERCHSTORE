@@ -37,11 +37,11 @@ const AdminUserListscreen = () => {
     },[dispatch,successDelete])
   return (
     <Container className="my-3">
+        <PageTitle title="Users List" />
         {
             loading ? <Loader /> : error ? <Message variant="danger">{error}</Message> :
             (
                 <Table striped bordered hover responsive className='text-center'>
-                    <PageTitle title="Users List" />
                     <thead>
                         <tr>
                         <th>ID</th>
